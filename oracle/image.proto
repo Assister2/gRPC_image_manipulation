@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+message SampleImage {
+  bool color = 1;
+  bytes data = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
+
+message RotateImage {
+  enum Rotation {
+    NONE = 0;
+    NINETY_DEG = 1;
+    ONE_EIGHTY_DEG = 2;
+    TWO_SEVENTY_DEG = 3;
+  }
+  Rotation rotation = 1;
+  SampleImage image = 2;
+}
+
+service ImageServer {
+  rpc ImageRotation(RotateImage) returns (SampleImage);
+  rpc ApplyFilter(SampleImage) returns (SampleImage);
+}

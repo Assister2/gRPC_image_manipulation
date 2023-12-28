@@ -1,10 +1,14 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
+package image;
 
 // input image, width, height
+
 message B64Image {
     string b64image = 1;
     int32 width = 2;
     int32 height = 3;
+    bytes data =4;
 }
 
 // output prediction
@@ -17,4 +21,6 @@ message Prediction {
 // service
 service ImageProcedure {
     rpc ImageMeanWH(B64Image) returns (Prediction) {}
+    rpc SendImage(B64Image) returns (google.protobuf.empty) {}
+    rpc GetImage(google.protobuf.empty) returns (stream B64Image) {}
 }

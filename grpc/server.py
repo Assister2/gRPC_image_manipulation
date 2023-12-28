@@ -1,7 +1,7 @@
 import grpc
 from concurrent import futures
 import time
-
+import cv2 as cv
 import image_procedure
 
 # import the generated classes

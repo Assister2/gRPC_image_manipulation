@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+message SampleImage {
+  // Indicates if the image is color (true) or black and white (false)
+  bool color = 1;
+  // Raw image data as bytes
+  bytes data = 2;
+  // Width of the image in pixels
+  int32 width = 3;
+  // Height of the image in pixels
+  int32 height = 4;
+}
+
+message RotateImage {
+  // Rotation options for the image
+  enum Rotation {
+    NONE = 0;
+    NINETY_DEG = 1;
+    ONE_EIGHTY_DEG = 2;
+    TWO_SEVENTY_DEG = 3;
+  }
+  // Rotation option selected
+  Rotation rotation = 1;
+  // Image to be rotated
+  SampleImage image = 2;
+}
+
+service ImageServer {
+  // Rotate an image based on the provided rotation
+  rpc ImageRotation(RotateImage) returns (SampleImage);
+
+  // Apply a mean filter to the image
+  rpc ApplyFilter(SampleImage) returns (SampleImage);
+}
